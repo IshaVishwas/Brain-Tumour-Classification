@@ -9,7 +9,7 @@ The model is trained to classify MRI images into **four categories**:
 - 🧩 **Pituitary Tumour**
 - ✅ **No Tumour**
 
-With transfer learning and proper preprocessing, the model achieves **~99% accuracy**, making it suitable for research and academic applications.
+With transfer learning and proper preprocessing, the model achieves **~95% accuracy**, making it suitable for research and academic applications.
 
 ---
 
