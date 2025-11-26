@@ -4,10 +4,10 @@ This project implements an automated system for **brain tumour classification fr
 
 The model is trained to classify MRI images into **four categories**:
 
-- 🧩 **Glioma**
-- 🧩 **Meningioma**
-- 🧩 **Pituitary Tumour**
-- ✅ **No Tumour**
+- **Glioma**
+- **Meningioma**
+- **Pituitary Tumour**
+- **No Tumour**
 
 With transfer learning and proper preprocessing, the model achieves **~95% accuracy**, making it suitable for research and academic applications.
 
@@ -80,7 +80,7 @@ The dataset consists of MRI images categorized into **4 tumour classes**:
 | Language | Python |
 | Deep Learning | TensorFlow · Keras |
 | Model | ResNet50 (Transfer Learning) |
-| Notebook | Jupyter / Google Colab |
+| Notebook | Google Colab |
 | Storage | Google Drive |
 
 ---
@@ -91,7 +91,7 @@ The dataset consists of MRI images categorized into **4 tumour classes**:
 ✅ Google Drive dataset integration  
 ✅ Image preprocessing + augmentation  
 ✅ Transfer Learning (ResNet50)  
-✅ High accuracy (~99%)  
+✅ High accuracy (~95%)  
 ✅ Confusion matrix evaluation  
 ✅ Saved `.keras` models for deployment  
 
@@ -124,14 +124,37 @@ Why ResNet50?
 
 ## 🧹 Data Preprocessing
 
-- Image resizing (224×224)
-- Normalization (0–1)
-- Data Augmentation:
-  - Rotation
-  - Zoom
-  - Flips
-  - Shifts
-- Optional cropping
+The MRI images in this project undergo the following preprocessing steps:
+
+### **1. ROI Cropping (Contour-Based Brain Extraction)**
+- Convert to grayscale  
+- Gaussian blur  
+- Thresholding  
+- Erosion + dilation  
+- Detect largest contour  
+- Find extreme points  
+- Crop the brain region from the MRI  
+
+### **2. Noise Reduction**
+- Applied **Bilateral Filtering** to reduce noise while preserving important edges.
+
+### **3. Pseudocolor Mapping**
+- Converted grayscale images to 3-channel format using **OpenCV COLORMAP_BONE** for compatibility with ResNet50.
+
+### **4. Image Resizing**
+- All images resized to **200 × 200 pixels**.
+
+### **5. Normalization**
+- Pixel intensities scaled to the **0–1** range.
+
+### **6. Data Augmentation (Used During Training)**
+- Rotation  
+- Width shift  
+- Height shift  
+- Horizontal flip  
+
+*(Other augmentations like brightness, vertical flip, shear, zoom were used only in preview visualization, not in final training.)*
+
 
 ---
 
@@ -144,16 +167,16 @@ Why ResNet50?
 
 Callbacks:
 
-✅ ModelCheckpoint  
-✅ EarlyStopping  
-✅ ReduceLROnPlateau (optional)
+ModelCheckpoint  
+EarlyStopping  
+ReduceLROnPlateau (optional)
 
 ---
 
 ## ✅ Results
 
-🎯 Final Accuracy: **~99%**  
-🧠 Able to classify all 4 tumour types correctly
+Final Accuracy: **~95%**  
+Able to classify all 4 tumour types 
 
 
 
